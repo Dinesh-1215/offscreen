@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NoSleep Interactive</title>
+  <title>OffScreen Interactive</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap">
-  <meta name="description" content="NoSleep keeps your screen awake. No Start needed!">
-  <meta name="keywords" content="NoSleep, screen awake, interactive, quotes, themes, screen off, awake, windows screen, no sleep, no sleep mode, no sleep app, no sleep screen, no sleep windows">
+  <meta name="description" content="OffScreen keeps your screen awake. No Start needed!">
+  <meta name="keywords" content="OffScreen, screen awake, interactive, quotes, themes, screen off, awake, windows screen, no sleep, no sleep mode, no sleep app, no sleep screen, no sleep windows">
   <meta name="author" content="Dinesh Karri">
 
   <style>
@@ -249,7 +249,7 @@
     <source src="silent.mp4" type="video/mp4">
   </video>
 
-  <div id="logo">NoSleep</div>
+  <div id="logo">OffScreen</div>
 
   <div class="ad-banner top-banner"><p>Top Banner (Ad space)</p></div>
   <div class="ad-banner bottom-banner"><p>Bottom Banner (Ad space)</p></div>
@@ -257,22 +257,22 @@
   <div class="ad-banner right-banner"><p>Right Banner (Ad space)</p></div>
 
   <div class="control-panel">
-    <button id="stopBtn" title="Stop NoSleep"><i class="fas fa-stop"></i></button>
-    <button id="startBtn" title="Start NoSleep"><i class="fas fa-play"></i></button>
+    <button id="stopBtn" title="Stop OffScreen"><i class="fas fa-stop"></i></button>
+    <button id="startBtn" title="Start OffScreen"><i class="fas fa-play"></i></button>
   </div>
 
-  <div id="notification">⚠️ Tab is inactive. NoSleep may stop working.</div>
+  <div id="notification">⚠️ Tab is inactive. OffScreen may stop working.</div>
   <div id="quote-box" aria-live="polite">Loading quote...</div>
 
   <div id="guide">
-    <h2>Welcome to NoSleep</h2>
+    <h2>Welcome to OffScreen</h2>
     <p>This keeps your screen awake. No Start needed!</p>
     <ul style="text-align:left; list-style-type: none;">
       <li>✦ Click the stop icon (top-right) to pause</li>
       <li>✦ Click the play icon (top-right) to resume</li>
       <li>✦ Enjoy the quotes 🎉</li>
       <li>✦ More tools are building in the backend</li>
-      <li>✦ Stay tuned to NoSleep</li>
+      <li>✦ Stay tuned to OffScreen</li>
     </ul>
   </div>
 
@@ -283,7 +283,7 @@
       <a href="about.html">About Us</a> | 
       <a href="contact.html">Contact Us</a>
     </div>
-    <p class="copyright">© 2025 NoSleep. All rights reserved.</p>
+    <p class="copyright">© 2025 OffScreen. All rights reserved.</p>
   </footer>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3795752037850568"
      crossorigin="anonymous"></script>
@@ -348,7 +348,7 @@
     async function requestWakeLock() {
       try {
         if (!window.isSecureContext) {
-          showNotification("⚠️ NoSleep requires HTTPS for full functionality. Using video fallback.");
+          showNotification("⚠️ OffScreen requires HTTPS for full functionality. Using video fallback.");
           video.play();
           return;
         }
@@ -386,7 +386,7 @@
       startBtn.disabled = false;
     }
 
-    async function startNoSleep() {
+    async function startOffScreen() {
       await requestWakeLock();
       stopBtn.style.display = 'flex';
       startBtn.style.display = 'none';
@@ -401,7 +401,7 @@
     }
 
     stopBtn.addEventListener('click', releaseWakeLock);
-    startBtn.addEventListener('click', startNoSleep);
+    startBtn.addEventListener('click', startOffScreen);
 
     setTimeout(rotateQuotes, 1000);
     requestWakeLock();
