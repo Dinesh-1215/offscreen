@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NoSleep Interactive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap">
+  <meta name="description" content="NoSleep keeps your screen awake. No Start needed!">
+  <meta name="keywords" content="NoSleep, screen awake, interactive, quotes, themes, screen off, awake, windows screen, no sleep, no sleep mode, no sleep app, no sleep screen, no sleep windows">
+  <meta name="author" content="Dinesh Karri">
+
+
+
+  <style>
+
+    body {
+      font-family: sans-serif;
+      background-color: #2c003e;
+      margin: 0;
+      overflow: hidden;
+      color: #e6b8ff;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .control-panel {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      z-index: 3;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      padding: 1em;
+      font-size: 1.2em;
+      background-color: #9b59b6;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #startBtn {
+      display: none;
+    }
+
+    #themeMenu {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 60px;
+      background-color: #4b0082;
+      border: 1px solid #e6b8ff;
+      border-radius: 5px;
+      z-index: 4;
+      padding: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    #themeMenu div {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      color: #e6b8ff;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #themeMenu div:hover {
+      transform: scale(1.2);
+    }
+
+    #logo {
+      position: fixed;
+      left: -200px;
+      top: 20px;
+      font-size: 2em;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      color: #e6b8ff;
+      z-index: 3;
+      animation: slideIn 1s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+      from { left: -200px; }
+      to { left: 20px; }
+    }
+
+    .ad-banner {
+      position: fixed;
+      background: rgba(255, 255, 255, 0.1);
+      color: #e6b8ff;
+      padding: 10px;
+      text-align: center;
+      z-index: 2;
+      border: 1px solid #e6b8ff33;
+      font-size: 14px;
+    }
+
+    .top-banner { top: 0; left: 50%; transform: translateX(-50%); width: 300px; }
+    .bottom-banner { bottom: 0; left: 50%; transform: translateX(-50%); width: 300px; }
+    .left-banner { left: 0; top: 50%; transform: translateY(-50%); width: 120px; height: 300px; }
+    .right-banner { right: 0; top: 50%; transform: translateY(-50%); width: 120px; height: 300px; }
+
+    #notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #e6b8ff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      z-index: 4;
+    }
+
+    #quote-box {
+      position: fixed;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-style: italic;
+      z-index: 3;
+      text-align: center;
+      padding: 10px 20px;
+      background-color: rgba(44,0,62,0.7);
+      border-radius: 5px;
+      max-width: 80%;
+    }
+
+    @media (max-width: 600px) {
+      #quote-box {
+        bottom: 80px;
+      }
+      .control-panel {
+        right: 10px;
+        gap: 5px;
+      }
+      #themeMenu {
+        top: 50px;
+      }
+      #logo {
+        animation: slideInMobile 1s ease-out forwards;
+      }
+      @keyframes slideInMobile {
+        from { left: -200px; }
+        to { left: 10px; }
+      }
+    }
+    /*align guide to center*/
+    #guide {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      flex-direction: column;
+      background-color: rgba(44,0,62,0.7);
+      border-radius: 10px;
+      padding: 20px;
+      z-index: 5;
+      display: flex; /* Initially hidden */
+    }
+
+    #guide button {
+      background: lime;
+      color: black;
+      margin-top: 20px;
+      border-radius: 5px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      font-family: sans-serif;
+      font-weight: bold;
+      width: 100px;
+      height: 40px;
+      padding: 10px 20px;
+
+    }
+    .ad-banner{
+        display: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <video id="silentVideo" autoplay muted loop playsinline>
+    <source src="silent.mp4" type="video/mp4">
+  </video>
+
+  <div id="logo">NoSleep</div>
+
+  <div class="ad-banner top-banner"><p>Top Banner (Ad space)</p></div>
+  <div class="ad-banner bottom-banner"><p>Bottom Banner (Ad space)</p></div>
+  <div class="ad-banner left-banner"><p>Left Banner (Ad space)</p></div>
+  <div class="ad-banner right-banner"><p>Right Banner (Ad space)</p></div>
+
+  <div class="control-panel">
+    <button id="stopBtn" title="Stop NoSleep"><i class="fas fa-stop"></i></button>
+    <button id="startBtn" title="Start NoSleep"><i class="fas fa-play"></i></button>
+  </div>
+
+  <div id="notification">⚠️ Tab is inactive. NoSleep may stop working.</div>
+  <div id="quote-box" aria-live="polite">Loading quote...</div>
+
+  <div id="guide">
+    <h2>Welcome to NoSleep</h2>
+    <p>This keeps your screen awake. No Start needed!</p>
+    <ul style="text-align:left;  list-style-type: none;">
+      <li>✦ Click the stop icon (top-right) to pause</li>
+      <li>✦ Click the play icon (top-right) to resume</li>
+      <li>✦ Enjoy the quotes 🎉</li>
+      <li>✦ More tools are building in the backend</li>
+      <li>✦ Stay tuned to NoSleep</li>
+    </ul>
+    <!-- <button id="guideDismissBtn" onclick="dismissGuide()">Got it!</button> -->
+  </div>
+
+  <script>
+    let wakeLock = null;
+    const stopBtn = document.getElementById('stopBtn');
+    const startBtn = document.getElementById('startBtn');
+    const video = document.getElementById('silentVideo');
+    const notification = document.getElementById('notification');
+    const quoteBox = document.getElementById('quote-box');
+    const guideDismissBtn = document.getElementById('guideDismissBtn');
+
+    const quotes = [
+      "Stay awake, stay inspired ✨",
+      "Your focus determines your reality 🌟",
+      "Dreams don’t work unless you do 💪",
+      "Keep your screen alive, keep your goals alive 🎯",
+      "Awake mode, activated — so are you! 🚀",
+      "Greatness begins with not falling asleep 😴",
+      "The future belongs to those who stay awake ⏰",
+      "Stay alert, seize the moment! ⚡",
+      "Awaken your potential, one moment at a time 🌈",
+      "Keep shining, even in the dark 🌌",
+      "No sleep, just dreams coming true 🥳",
+      "Stay vigilant, create your destiny 🛠️",
+      "Awake and ready to conquer the day! 🌅",
+      "Your screen is your canvas, paint it bright! 🎨",
+      "Awake mode: where ideas come to life! 💡",
+      "Stay awake, stay curious! 🔍"
+    ];
+    let quoteIndex = 0;
+    let isTyping = false;
+
+
+    function typeQuote(text, element, callback) {
+      if (isTyping) return;
+      isTyping = true;
+      element.textContent = '';
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 100);
+        } else {
+          isTyping = false;
+          if (callback) callback();
+        }
+      }
+      type();
+    }
+
+    function rotateQuotes() {
+      if (isTyping) return;
+      const quote = quotes[quoteIndex % quotes.length];
+      typeQuote(quote, quoteBox, () => {
+        setTimeout(() => {
+          quoteIndex++;
+          rotateQuotes();
+        }, 3000);
+      });
+    }
+
+    async function requestWakeLock() {
+      try {
+        if (!window.isSecureContext) {
+          showNotification("⚠️ NoSleep requires HTTPS for full functionality. Using video fallback.");
+          video.play();
+          return;
+        }
+
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+          wakeLock.addEventListener('release', () => {
+            console.log('Wake Lock released');
+            video.play();
+          });
+        } else {
+          showNotification("⚠️ Wake Lock API not supported. Using video fallback.");
+          video.play();
+        }
+      } catch (err) {
+        console.error(`Wake Lock error: ${err.name}, ${err.message}`);
+        showNotification("⚠️ Unable to use Wake Lock. Using video fallback.");
+        video.play();
+      }
+    }
+
+    async function releaseWakeLock() {
+      try {
+        if (wakeLock !== null) {
+          await wakeLock.release();
+          wakeLock = null;
+        }
+      } catch (err) {
+        console.error(`Wake Lock release error: ${err.name}, ${err.message}`);
+      }
+      video.pause();
+      stopBtn.style.display = 'none';
+      startBtn.style.display = 'flex';
+      stopBtn.disabled = true;
+      startBtn.disabled = false;
+    }
+
+    async function startNoSleep() {
+      await requestWakeLock();
+      stopBtn.style.display = 'flex';
+      startBtn.style.display = 'none';
+      stopBtn.disabled = false;
+      startBtn.disabled = true;
+    }
+
+    function showNotification(msg) {
+      notification.textContent = msg;
+      notification.style.display = 'block';
+      setTimeout(() => notification.style.display = 'none', 5000);
+    }
+
+  
+    // Event Listeners
+    stopBtn.addEventListener('click', releaseWakeLock);
+    startBtn.addEventListener('click', startNoSleep);
+
+  
+    // Start quote rotation
+    setTimeout(rotateQuotes, 1000);
+
+    // Auto start NoSleep
+    requestWakeLock();
+  </script>
+</body>
+</html>
