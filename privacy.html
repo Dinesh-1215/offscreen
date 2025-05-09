@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Policy - NoSleep</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #2c003e;
+      margin: 0;
+      padding: 20px;
+      color: #e6b8ff;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: rgba(44,0,62,0.7);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+    }
+    a {
+      color: #e6b8ff;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #fff;
+    }
+    footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .nav-links a {
+      margin: 0 15px;
+    }
+    .copyright {
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+    #redirectNotification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #e6b8ff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div id="redirectNotification"></div>
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p>Last updated: May 9, 2025</p>
+    <p>NoSleep ("we", "us", or "our") operates the NoSleep website (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal information when you use our Service.</p>
+    
+    <h2>Information Collection and Use</h2>
+    <p>We do not collect personal information from users unless explicitly provided through our contact forms. We may collect non-personal information such as browser type, operating system, and pages visited to improve our Service.</p>
+    
+    <h2>Cookies</h2>
+    <p>We use cookies to enhance user experience and analyze website traffic. You can disable cookies in your browser settings, but this may affect the functionality of the Service.</p>
+    
+    <h2>Third-Party Services</h2>
+    <p>We may use third-party services (e.g., Google Analytics, AdSense) that collect, monitor, and analyze data. These services have their own privacy policies.</p>
+    
+    <h2>Data Security</h2>
+    <p>We strive to protect your information but cannot guarantee absolute security. Please exercise caution when sharing information.</p>
+    
+    <h2>Changes to This Privacy Policy</h2>
+    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+    
+    <h2>Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@nosleep.com">support@nosleep.com</a>.</p>
+    
+    <button onclick="window.location.href='index.html'" style="background: #9b59b6; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Orbitron', sans-serif; margin: 20px auto; display: block;">Back to Home</button>
+    
+    <footer>
+      <div class="nav-links">
+        <a href="index.html">Home</a> | 
+        <a href="terms.html">Terms of Service</a> | 
+        <a href="about.html">About Us</a> | 
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <p class="copyright">© 2025 NoSleep. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    let inactivityTimer;
+    const notification = document.getElementById('redirectNotification');
+
+    function showNotification(msg) {
+      notification.textContent = msg;
+      notification.style.display = 'block';
+      setTimeout(() => notification.style.display = 'none', 5000);
+    }
+
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        showNotification('Redirecting to Home in 5 seconds...');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 5000);
+      }, 30000);
+    }
+
+    resetInactivityTimer();
+    document.addEventListener('mousemove', resetInactivityTimer);
+    document.addEventListener('click', resetInactivityTimer);
+  </script>
+</body>
+</html>
