@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Offscreen Interactive</title>
+  <title>NoSleep Interactive</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap">
@@ -10,10 +10,7 @@
   <meta name="keywords" content="NoSleep, screen awake, interactive, quotes, themes, screen off, awake, windows screen, no sleep, no sleep mode, no sleep app, no sleep screen, no sleep windows">
   <meta name="author" content="Dinesh Karri">
 
-
-
   <style>
-
     body {
       font-family: sans-serif;
       background-color: #2c003e;
@@ -172,7 +169,7 @@
         to { left: 10px; }
       }
     }
-    /*align guide to center*/
+
     #guide {
       position: fixed;
       top: 50%;
@@ -183,7 +180,7 @@
       border-radius: 10px;
       padding: 20px;
       z-index: 5;
-      display: flex; /* Initially hidden */
+      display: flex;
     }
 
     #guide button {
@@ -202,21 +199,57 @@
       width: 100px;
       height: 40px;
       padding: 10px 20px;
-
-    }
-    .ad-banner{
-/*         display: none; */
     }
 
+    .ad-banner {
+      display: none;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(44,0,62,0.7);
+      color: #e6b8ff;
+      text-align: center;
+      padding: 10px 0;
+      z-index: 3;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    footer a {
+      color: #e6b8ff;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    .copyright {
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 600px) {
+      footer {
+        padding: 5px 0;
+        font-size: 0.9em;
+      }
+      footer a {
+        margin: 0 10px;
+      }
+    }
   </style>
 </head>
 <body>
-
   <video id="silentVideo" autoplay muted loop playsinline>
     <source src="silent.mp4" type="video/mp4">
   </video>
 
-  <div id="logo">Off Screen</div>
+  <div id="logo">NoSleep</div>
 
   <div class="ad-banner top-banner"><p>Top Banner (Ad space)</p></div>
   <div class="ad-banner bottom-banner"><p>Bottom Banner (Ad space)</p></div>
@@ -232,19 +265,27 @@
   <div id="quote-box" aria-live="polite">Loading quote...</div>
 
   <div id="guide">
-    <h2>Welcome to OffScreen</h2>
+    <h2>Welcome to NoSleep</h2>
     <p>This keeps your screen awake. No Start needed!</p>
-    <ul style="text-align:left;  list-style-type: none;">
+    <ul style="text-align:left; list-style-type: none;">
       <li>✦ Click the stop icon (top-right) to pause</li>
       <li>✦ Click the play icon (top-right) to resume</li>
       <li>✦ Enjoy the quotes 🎉</li>
       <li>✦ More tools are building in the backend</li>
-      <li>✦ Stay tuned to OffScreen</li>
+      <li>✦ Stay tuned to NoSleep</li>
     </ul>
-    <!-- <button id="guideDismissBtn" onclick="dismissGuide()">Got it!</button> -->
   </div>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3795752037850568"
-     crossorigin="anonymous"></script>
+
+  <footer>
+    <div class="nav-links">
+      <a href="privacy.html">Privacy Policy</a> | 
+      <a href="terms.html">Terms of Service</a> | 
+      <a href="about.html">About Us</a> | 
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <p class="copyright">© 2025 NoSleep. All rights reserved.</p>
+  </footer>
+
   <script>
     let wakeLock = null;
     const stopBtn = document.getElementById('stopBtn');
@@ -252,7 +293,6 @@
     const video = document.getElementById('silentVideo');
     const notification = document.getElementById('notification');
     const quoteBox = document.getElementById('quote-box');
-    const guideDismissBtn = document.getElementById('guideDismissBtn');
 
     const quotes = [
       "Stay awake, stay inspired ✨",
@@ -274,7 +314,6 @@
     ];
     let quoteIndex = 0;
     let isTyping = false;
-
 
     function typeQuote(text, element, callback) {
       if (isTyping) return;
@@ -360,16 +399,10 @@
       setTimeout(() => notification.style.display = 'none', 5000);
     }
 
-  
-    // Event Listeners
     stopBtn.addEventListener('click', releaseWakeLock);
     startBtn.addEventListener('click', startNoSleep);
 
-  
-    // Start quote rotation
     setTimeout(rotateQuotes, 1000);
-
-    // Auto start NoSleep
     requestWakeLock();
   </script>
 </body>
