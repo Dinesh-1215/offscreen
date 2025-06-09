@@ -1038,16 +1038,18 @@ const TipCalculatorTool = () => {
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Tip Percentage (%)</label>
             <div className="flex gap-2 mb-2">
-              {[15, 18, 20, 25].map(percent => (
-                <Button
+              {[10, 15, 18, 20, 25].map(percent => (
+                <button
                   key={percent}
+                  className={`px-3 py-2 rounded-lg font-semibold border border-blue-200
+                    ${tipPercent === percent
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-blue-100 text-blue-800 hover:bg-blue-200'}
+                  `}
                   onClick={() => setTipPercent(percent)}
-                  variant={tipPercent === percent ? "default" : "outline"}
-                  size="sm"
-                  className={tipPercent === percent ? "bg-blue-600 text-white" : ""}
                 >
                   {percent}%
-                </Button>
+                </button>
               ))}
             </div>
             <input

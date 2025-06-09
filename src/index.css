@@ -152,7 +152,8 @@
   }
 
   /* Force remove yellow backgrounds site-wide */
-  body, .tool-card, .blog-card, .section-border, .card, .main, .content {
+  body, .tool-card, .blog-card, .section-border, .card, .main, .content,
+  button, input, select, textarea {
     background-color: #fff !important;
   }
 }
