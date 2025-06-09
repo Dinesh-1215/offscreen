@@ -2164,7 +2164,9 @@ const LoremIpsumTool = () => {
     <Card className="tool-card">
       <CardHeader className="text-center">
         <CardTitle>Lorem Ipsum Generator</CardTitle>
-        <CardDescription>Generate placeholder text for your designs.</CardDescription>
+        <CardDescription className="text-lg text-slate-600">
+          Generate placeholder text for your designs.
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="flex gap-2 items-center">
