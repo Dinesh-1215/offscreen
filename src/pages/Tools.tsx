@@ -1678,35 +1678,49 @@ const CurrencyConverterTool = () => {
   );
 };
 
-// Tax Calculator Tool (simple US federal tax brackets for demo)
 const TaxCalculatorTool = () => {
-  const [income, setIncome] = useState(50000);
+  const [income, setIncome] = useState(1200000);
+  const [isSalaried, setIsSalaried] = useState(true);
   const [tax, setTax] = useState<number | null>(null);
 
+  // Indian New Regime Slabs FY 2025-26
   const calculateTax = () => {
-    // 2024 US federal tax brackets (single filer, simplified)
-    let brackets = [
-      { cap: 11000, rate: 0.10 },
-      { cap: 44725, rate: 0.12 },
-      { cap: 95375, rate: 0.22 },
-      { cap: 182100, rate: 0.24 },
-      { cap: 231250, rate: 0.32 },
-      { cap: 578125, rate: 0.35 },
-      { cap: Infinity, rate: 0.37 },
+    let grossIncome = income;
+    if (isSalaried) {
+      grossIncome = Math.max(0, income - 75000); // Apply standard deduction
+    }
+
+    let slabs = [
+      { cap: 300000, rate: 0 },
+      { cap: 600000, rate: 0.05 },
+      { cap: 900000, rate: 0.10 },
+      { cap: 1200000, rate: 0.15 },
+      { cap: 1500000, rate: 0.20 },
+      { cap: Infinity, rate: 0.30 },
     ];
-    let remaining = income;
-    let owed = 0;
-    let lastCap = 0;
-    for (let b of brackets) {
-      if (income > b.cap) {
-        owed += (b.cap - lastCap) * b.rate;
-        lastCap = b.cap;
+    let tax = 0;
+    let prev = 0;
+    for (let i = 0; i < slabs.length; i++) {
+      if (grossIncome > slabs[i].cap) {
+        tax += (slabs[i].cap - prev) * slabs[i].rate;
+        prev = slabs[i].cap;
       } else {
-        owed += (remaining) * b.rate;
+        tax += (grossIncome - prev) * slabs[i].rate;
         break;
       }
     }
-    setTax(owed);
+
+    // Apply rebate: If grossIncome <= 12,00,000, rebate up to ₹60,000 (tax becomes 0 if tax <= 60,000)
+    let rebate = 0;
+    if (grossIncome <= 1200000) {
+      rebate = Math.min(tax, 60000);
+      tax -= rebate;
+    }
+
+    // 4% Health & Education Cess on tax after rebate
+    tax += tax * 0.04;
+
+    setTax(tax);
   };
 
   return (
@@ -1717,20 +1731,47 @@ const TaxCalculatorTool = () => {
         </div>
         <CardTitle className="text-2xl text-slate-900">Tax Calculator</CardTitle>
         <CardDescription className="text-lg text-slate-600">
-          Estimate your US federal income tax
+          Estimate your Indian income tax (FY 2025-26, New Regime, with rebate)
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        <label className="block mb-1 font-medium">Are you a salaried individual?</label>
+        <div className="flex gap-4 mb-2">
+          <label className="flex items-center gap-1">
+            <input
+              type="radio"
+              checked={isSalaried}
+              onChange={() => setIsSalaried(true)}
+            />
+            Salaried (₹75,000 standard deduction)
+          </label>
+          <label className="flex items-center gap-1">
+            <input
+              type="radio"
+              checked={!isSalaried}
+              onChange={() => setIsSalaried(false)}
+            />
+            Not Salaried
+          </label>
+        </div>
         <input
           type="number"
           value={income}
           onChange={e => setIncome(Number(e.target.value))}
           className="w-full p-2 border border-slate-300 rounded-lg"
+          placeholder="Enter annual income (₹)"
         />
         <Button onClick={calculateTax} className="btn-primary w-full">Calculate Tax</Button>
         {tax !== null && (
           <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center">
-            <span className="text-2xl font-bold text-blue-600">${tax.toFixed(2)}</span>
+            <span className="text-2xl font-bold text-blue-600">₹{tax.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</span>
+            <div className="text-sm text-slate-600 mt-2">
+              {isSalaried && income <= 1275000
+                ? "No tax payable due to standard deduction and rebate."
+                : !isSalaried && income <= 1200000
+                  ? "No tax payable due to rebate."
+                  : "Includes 4% Health & Education Cess and rebate if applicable."}
+            </div>
           </div>
         )}
       </CardContent>
@@ -2023,14 +2064,14 @@ const ImageResizerTool = () => {
             value={width}
             onChange={e => setWidth(Number(e.target.value))}
             placeholder="Width"
-            className="p-2 border rounded flex-1"
+            className="p-2 border border-slate-300 rounded-lg flex-1"
           />
           <input
             type="number"
             value={height}
             onChange={e => setHeight(Number(e.target.value))}
             placeholder="Height"
-            className="p-2 border rounded flex-1"
+            className="p-2 border border-slate-300 rounded-lg flex-1"
           />
         </div>
         <Button onClick={resizeImage} disabled={!image} className="w-full">
