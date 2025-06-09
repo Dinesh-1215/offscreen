@@ -150,4 +150,9 @@
   .calc-btn-equals {
     @apply bg-green-600 hover:bg-green-700 text-white;
   }
+
+  /* Force remove yellow backgrounds site-wide */
+  body, .tool-card, .blog-card, .section-border, .card, .main, .content {
+    background-color: #fff !important;
+  }
 }
