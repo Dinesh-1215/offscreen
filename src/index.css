@@ -156,4 +156,31 @@
   button, input, select, textarea {
     background-color: #fff !important;
   }
+
+  button, input, select, textarea {
+    color: #1e293b !important; /* Tailwind's slate-800 for good contrast */
+  }
+
+  button, .btn, .Button, .calc-btn, .btn-primary, .btn-secondary {
+    border: 1.5px solid #cbd5e1 !important; /* Tailwind's border-slate-300 */
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  button:hover, .btn:hover, .Button:hover, .calc-btn:hover, .btn-primary:hover, .btn-secondary:hover {
+    border-color: #2563eb !important; /* Tailwind's blue-600 */
+    background-color: #e0e7ff !important; /* Tailwind's blue-100 */
+    color: #1e40af !important; /* Tailwind's blue-800 */
+  }
+
+  input, select, textarea {
+    border: 1.5px solid #cbd5e1 !important; /* Tailwind's border-slate-300 */
+    background-color: #fff !important;
+    color: #1e293b !important;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: #2563eb !important; /* Tailwind's blue-600 */
+    outline: none;
+  }
 }

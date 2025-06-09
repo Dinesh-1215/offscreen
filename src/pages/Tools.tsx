@@ -1919,24 +1919,30 @@ const RegexTesterTool = () => {
 // IP Lookup (demo, no API)
 const IPLookupTool = () => {
   const [ip, setIp] = useState('');
-  const [info, setInfo] = useState<any>(null);
+  const [result, setResult] = useState(null);
 
-  const lookup = () => {
-    // Demo: just echo IP, in real app use an API
-    setInfo({ ip, city: "Demo City", country: "Demo Country" });
+  const lookupIp = async () => {
+    const res = await fetch(`https://ipapi.co/${ip}/json/`);
+    const data = await res.json();
+    setResult(data);
   };
 
   return (
     <Card className="tool-card">
       <CardHeader className="text-center"><CardTitle>IP Lookup</CardTitle></CardHeader>
       <CardContent className="space-y-4">
-        <input value={ip} onChange={e => setIp(e.target.value)} className="w-full p-2 border rounded" placeholder="Enter IP address..." />
-        <Button onClick={lookup}>Lookup</Button>
-        {info && (
+        <input
+          value={ip}
+          onChange={e => setIp(e.target.value)}
+          placeholder="Enter IP address"
+          className="border p-2 rounded"
+        />
+        <button onClick={lookupIp} className="ml-2 btn-primary">Lookup</button>
+        {result && (
           <div className="mt-2">
-            <div><b>IP:</b> {info.ip}</div>
-            <div><b>City:</b> {info.city}</div>
-            <div><b>Country:</b> {info.country}</div>
+            <div>Country: {result.country_name}</div>
+            <div>City: {result.city}</div>
+            {/* Add more fields as needed */}
           </div>
         )}
       </CardContent>
@@ -1947,23 +1953,26 @@ const IPLookupTool = () => {
 // Domain Checker (demo, random result)
 const DomainCheckerTool = () => {
   const [domain, setDomain] = useState('');
-  const [available, setAvailable] = useState<boolean | null>(null);
+  const [status, setStatus] = useState('');
 
-  const check = () => {
-    setAvailable(Math.random() > 0.5);
+  const checkDomain = async () => {
+    const res = await fetch(`https://api.domainsdb.info/v1/domains/search?domain=${domain}`);
+    const data = await res.json();
+    setStatus(data.domains && data.domains.length > 0 ? 'Taken' : 'Available');
   };
 
   return (
     <Card className="tool-card">
       <CardHeader className="text-center"><CardTitle>Domain Checker</CardTitle></CardHeader>
       <CardContent className="space-y-4">
-        <input value={domain} onChange={e => setDomain(e.target.value)} className="w-full p-2 border rounded" placeholder="Enter domain (e.g. example.com)" />
-        <Button onClick={check}>Check</Button>
-        {available !== null && (
-          <div className={`mt-2 font-bold ${available ? 'text-green-600' : 'text-red-600'}`}>
-            {available ? 'Available!' : 'Taken'}
-          </div>
-        )}
+        <input
+          value={domain}
+          onChange={e => setDomain(e.target.value)}
+          placeholder="Enter domain"
+          className="border p-2 rounded"
+        />
+        <button onClick={checkDomain} className="ml-2 btn-primary">Check</button>
+        {status && <div className="mt-2">Status: {status}</div>}
       </CardContent>
     </Card>
   );
