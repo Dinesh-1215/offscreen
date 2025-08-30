@@ -3,173 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advertise With AI</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>AdvertiseWith.AI - Publisher Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    (function() {
-      emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
-    })();
-  </script>
 </head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white font-sans">
 
-<body class="bg-gray-950 text-white">
   <!-- Header -->
-  <header class="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-center shadow-lg">
-    <h1 class="text-3xl font-bold tracking-wide">🚀 AdvertiseWith.AI</h1>
-    <p class="mt-2 text-gray-200">AI-Powered Advertising Solutions</p>
+  <header class="p-6 text-center">
+    <h1 class="text-3xl md:text-4xl font-bold text-blue-400">AdvertiseWith.AI</h1>
+    <p class="text-gray-300 mt-2">Boost Your Brand With AI-Powered Ads 🚀</p>
   </header>
 
-  <!-- Form Container -->
-  <section class="flex justify-center items-center py-12 px-4">
-    <div class="bg-gray-900 shadow-2xl rounded-2xl p-8 w-full max-w-xl border border-purple-500 transition-all duration-500 hover:scale-105 hover:shadow-purple-700">
-      <h2 class="text-2xl font-semibold mb-6 text-center">📢 Advertise With Us</h2>
-      
-      <form id="advertiseForm" class="space-y-5">
-        <!-- Name -->
-        <div>
-          <label class="block mb-2 font-medium">Full Name</label>
-          <input type="text" name="name" required class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition">
-        </div>
+  <!-- Form Section -->
+  <section class="flex justify-center items-center px-6 py-6">
+    <form id="adForm" class="bg-gray-800 rounded-2xl shadow-xl p-8 w-full max-w-lg border border-gray-700">
+      <h2 class="text-2xl font-semibold text-center text-white mb-6">Publish Your Ad</h2>
 
-        <!-- Email -->
-        <div>
-          <label class="block mb-2 font-medium">Email</label>
-          <input type="email" name="email" required class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition">
-        </div>
+      <!-- Name -->
+      <label class="block mb-2 font-medium">Full Name</label>
+      <input type="text" name="name" required placeholder="John Doe" 
+        class="w-full p-3 mb-4 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none" />
 
-        <!-- Phone Number -->
-        <div>
-          <label class="block mb-2 font-medium">Phone Number</label>
-          <input type="tel" name="phone" pattern="[0-9]{10}" maxlength="10" required placeholder="Enter 10-digit number" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition">
-        </div>
+      <!-- Email -->
+      <label class="block mb-2 font-medium">Email</label>
+      <input type="email" name="email" required placeholder="you@example.com" 
+        class="w-full p-3 mb-4 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none" />
 
-        <!-- Brand / Company Name -->
-        <div>
-          <label class="block mb-2 font-medium">Brand / Company Name</label>
-          <input type="text" name="brand" required class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition">
-        </div>
+      <!-- Phone -->
+      <label class="block mb-2 font-medium">Phone Number</label>
+      <input type="tel" name="phone" required placeholder="+91 98765 43210"
+        class="w-full p-3 mb-4 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
+        pattern="[0-9]{10}" title="Enter a valid 10-digit mobile number" />
 
-        <!-- Website / Social -->
-        <div>
-          <label class="block mb-2 font-medium">Website / Social Profile</label>
-          <input type="url" name="website" placeholder="https://example.com" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition">
-        </div>
+      <!-- Company -->
+      <label class="block mb-2 font-medium">Company / Brand Name</label>
+      <input type="text" name="company" placeholder="BrandX Pvt Ltd"
+        class="w-full p-3 mb-4 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none" />
 
-        <!-- Budget Plans -->
-        <div>
-          <label class="block mb-2 font-medium">Select Your Budget</label>
-          <select id="budget" name="budget" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none">
-            <option value="199">₹199 - Starter Plan</option>
-            <option value="499">₹499 - Growth Plan</option>
-            <option value="999">₹999 - Premium Plan</option>
-            <option value="custom">Custom Amount</option>
-          </select>
-        </div>
+      <!-- Budget -->
+      <label class="block mb-2 font-medium">Budget (₹)</label>
+      <select id="budget" name="budget"
+        class="w-full p-3 mb-4 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
+        onchange="toggleCustomAmount()">
+        <option value="199">₹199 - Starter Plan</option>
+        <option value="499">₹499 - Growth Plan</option>
+        <option value="999">₹999 - Premium Plan</option>
+        <option value="custom">Custom Amount</option>
+      </select>
 
-        <!-- Custom Budget -->
-        <div id="customBudgetDiv" class="hidden">
-          <label class="block mb-2 font-medium">Enter Custom Amount</label>
-          <input type="number" id="customBudget" name="custom_budget" min="200" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none">
-        </div>
+      <!-- Custom Amount -->
+      <div id="customAmountBox" class="hidden">
+        <input type="number" id="customAmount" placeholder="Enter custom amount"
+          class="w-full p-3 mb-4 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none" />
+      </div>
 
-        <!-- Message -->
-        <div>
-          <label class="block mb-2 font-medium">Message / Requirements</label>
-          <textarea name="message" rows="3" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition"></textarea>
-        </div>
+      <!-- Message -->
+      <label class="block mb-2 font-medium">Ad Description</label>
+      <textarea name="message" placeholder="Tell us about your ad campaign..."
+        class="w-full p-3 mb-6 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none" rows="4"></textarea>
 
-        <!-- Submit Button -->
-        <button id="submitBtn" type="submit" class="w-full bg-purple-600 hover:bg-purple-700 transition-all p-3 rounded-lg text-lg font-semibold shadow-lg flex justify-center items-center gap-2">
-          <span id="btnText">Submit</span>
-          <svg id="loadingIcon" class="hidden w-5 h-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-          </svg>
-        </button>
-      </form>
-    </div>
+      <!-- Submit Button -->
+      <button type="submit"
+        class="w-full bg-blue-500 hover:bg-blue-600 transition-all text-white py-3 px-6 rounded-xl text-lg font-semibold shadow-lg">
+        Submit & Get Started 🚀
+      </button>
+    </form>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 py-6 text-center border-t border-gray-700">
-    <p class="text-gray-400 text-sm">© 2025 AdvertiseWith.AI | Powered by AI Advertising 🚀</p>
+  <footer class="text-center py-6 bg-gray-900 border-t border-gray-700">
+    <p class="text-gray-400 text-sm">
+      © 2025 AdvertiseWith.AI | Built with ❤️ by Dinesh Karri
+    </p>
   </footer>
 
   <script>
-    const budgetSelect = document.getElementById("budget");
-    const customBudgetDiv = document.getElementById("customBudgetDiv");
-    const submitBtn = document.getElementById("submitBtn");
-    const btnText = document.getElementById("btnText");
-    const loadingIcon = document.getElementById("loadingIcon");
+    const sheetDBURL = "https://sheetdb.io/api/v1/YOUR_SHEETDB_API_KEY";
 
-    budgetSelect.addEventListener("change", () => {
-      customBudgetDiv.classList.toggle("hidden", budgetSelect.value !== "custom");
-    });
+    // Toggle custom budget box
+    function toggleCustomAmount() {
+      const budget = document.getElementById("budget");
+      const customBox = document.getElementById("customAmountBox");
+      customBox.classList.toggle("hidden", budget.value !== "custom");
+    }
 
-    // Form Submission
-    document.getElementById("advertiseForm").addEventListener("submit", async function (e) {
+    document.getElementById("adForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      // Show loading animation
-      btnText.textContent = "Submitting...";
-      loadingIcon.classList.remove("hidden");
-      submitBtn.disabled = true;
-
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData.entries());
-
-      const sheetDBURL = "https://sheetdb.io/api/v1/2oa5f8ze8quwp";
-
-      try {
-        // Save to Google Sheets
-        await fetch(sheetDBURL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ data: [data] })
-        });
-
-        // Send Email Notification
-        await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          brand: data.brand,
-          budget: data.budget === "custom" ? data.custom_budget : data.budget,
-          message: data.message
-        });
-
-        // Show success animation
-        Swal.fire({
-          icon: "success",
-          title: "🎉 Submitted Successfully!",
-          text: "Our team will reach out to you shortly.",
-          confirmButtonColor: "#8b5cf6",
-          showClass: {
-            popup: "animate__animated animate__zoomIn"
-          },
-          hideClass: {
-            popup: "animate__animated animate__zoomOut"
-          }
-        });
-
-        this.reset();
-        customBudgetDiv.classList.add("hidden");
-
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Submission Failed!",
-          text: "Something went wrong. Please try again later.",
-          confirmButtonColor: "#ef4444"
-        });
+      const formData = new FormData(e.target);
+      let budgetValue = formData.get("budget");
+      if (budgetValue === "custom") {
+        budgetValue = document.getElementById("customAmount").value || "Not Specified";
       }
 
-      // Reset button state
-      btnText.textContent = "Submit";
-      loadingIcon.classList.add("hidden");
-      submitBtn.disabled = false;
+      const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        company: formData.get("company"),
+        budget: budgetValue,
+        message: formData.get("message"),
+      };
+
+      try {
+        const response = await fetch(sheetDBURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ data: [data] }),
+        });
+
+        if (response.ok) {
+          Swal.fire("Success!", "Your request has been submitted!", "success");
+          e.target.reset();
+        } else {
+          Swal.fire("Error!", "Failed to submit your request.", "error");
+        }
+      } catch (error) {
+        Swal.fire("Oops!", "Something went wrong. Try again later.", "error");
+      }
     });
   </script>
 </body>
