@@ -39,6 +39,12 @@
           <input type="email" name="email" required class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none">
         </div>
 
+        <!-- Phone Number -->
+      <div>
+        <label class="block mb-1 text-gray-300">Phone Number</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" maxlength="10" required placeholder="Enter 10-digit number" class="w-full p-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
+      </div>
+
         <!-- Brand / Company Name -->
         <div>
           <label class="block mb-2 font-medium">Brand / Company Name</label>
@@ -101,6 +107,7 @@
     const data = {
         Name: document.getElementById("name").value,
         Email: document.getElementById("email").value,
+        Phone: document.getElementById("phone").value,
         Business: document.getElementById("business").value,
         Budget: document.getElementById("budget").value,
         CustomBudget: document.getElementById("customBudget").value || "N/A",
